@@ -1,52 +1,42 @@
 package com.ltp.gradesubmission;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.ltp.gradesubmission.pojo.Grade;
 import com.ltp.gradesubmission.repository.GradeRepository;
 import com.ltp.gradesubmission.service.GradeService;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import java.util.Arrays;
 import java.util.List;
 
-
-//Initializing the Runner Class
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class MyGradeServiceTests {
-    
-    //Mock the Dependency Object
+
     @Mock
     private GradeRepository gradeRepository;
 
-    //Inject the Mock into the Service object to be tested.
     @InjectMocks
     private GradeService gradeService;
 
     @Test
+    public void gradeIndexTest() {
+        // Arrange: Setup the mock behavior
+        Grade grade = new Grade();
+        when(gradeRepository.getGrades()).thenReturn(Arrays.asList(grade));
 
-    public String gradeIndexTest() {
-        when(gradeRepository.getGrades()).thenReturn(Arrays.asList());
-            return "GradeRepository()";
+        // Act: Call the method under test
+        List<Grade> grades = gradeService.getGrades();
 
-        gradeService.getGrades();
-
+        // Assert: Verify the behavior
+        assertNotNull(grades, "The grades list should not be null");
+        assertEquals(0, grades.size(), "The grades list should be empty");
     }
-
-    asser
 }
