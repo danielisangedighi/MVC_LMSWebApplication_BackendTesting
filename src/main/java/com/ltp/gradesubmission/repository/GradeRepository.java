@@ -7,6 +7,7 @@ import com.ltp.gradesubmission.pojo.Grade;
 
 import org.springframework.stereotype.Repository;
 
+
 @Repository
 public class GradeRepository {
     
@@ -26,6 +27,10 @@ public class GradeRepository {
     
     public List<Grade> getGrades() {
         return studentGrades;
+    }
+
+    public GradeRepository(List<Grade> studentGrades) {
+        this.studentGrades = studentGrades;
     }
 
 }
